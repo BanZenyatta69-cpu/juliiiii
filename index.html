@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siempre serás el amor de mi vida</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #8B0000;
+    --rose: #C41E3A;
+    --blush: #FFB6C1;
+    --cream: #FFF5F0;
+    --deep: #0D0608;
+    --dark: #1a0810;
+    --gold: #D4AF37;
+    --smoke: rgba(255,255,255,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── PETALS ─── */
+  .petals-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    width: 12px; height: 16px;
+    background: radial-gradient(ellipse at 40% 30%, #e8637a, #8B0000 60%);
+    border-radius: 50% 50% 50% 0 / 60% 60% 40% 40%;
+    opacity: 0;
+    animation: fall linear infinite;
+    filter: blur(0.3px);
+  }
+
+  @keyframes fall {
+    0%   { transform: translateY(-40px) rotate(0deg) translateX(0); opacity: 0; }
+    5%   { opacity: 0.7; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(110vh) rotate(720deg) translateX(80px); opacity: 0; }
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    z-index: 1;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,0,0,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(196,30,58,0.2) 0%, transparent 70%);
+    z-index: -1;
+  }
+
+  .ornament {
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 12px;
+    opacity: 0.6;
+    margin-bottom: 28px;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--cream);
+    animation: fadeUp 1.4s ease both 0.2s;
+    text-shadow: 0 0 60px rgba(196,30,58,0.4);
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--blush);
+  }
+
+  .divider-heart {
+    margin: 32px auto;
+    font-size: 1.8rem;
+    animation: pulse 2.5s ease-in-out infinite, fadeUp 1.4s ease both 0.4s;
+    display: block;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  .hero-sub {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    color: rgba(255,245,240,0.75);
+    max-width: 580px;
+    line-height: 1.8;
+    animation: fadeUp 1.4s ease both 0.5s;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── PLAYER ─── */
+  .player-section {
+    position: relative;
+    z-index: 1;
+    padding: 40px 20px 60px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .player-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,175,55,0.25);
+    border-radius: 20px;
+    padding: 36px 40px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 60px rgba(139,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+    animation: fadeUp 1.6s ease both 0.6s;
+  }
+
+  .vinyl {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: conic-gradient(#1a0810, #3d0b18, #1a0810, #3d0b18, #1a0810);
+    margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 30px rgba(196,30,58,0.4);
+    position: relative;
+  }
+
+  .vinyl.spinning {
+    animation: spin 4s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .vinyl-center {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--dark);
+    border: 2px solid var(--rose);
+    position: absolute;
+  }
+
+  .player-song {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  .player-artist {
+    font-size: 0.9rem;
+    color: rgba(255,182,193,0.6);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  audio {
+    width: 100%;
+    height: 36px;
+    margin-bottom: 0;
+    accent-color: var(--rose);
+    opacity: 0.85;
+  }
+
+  audio::-webkit-media-controls-panel {
+    background: transparent;
+  }
+
+  /* ─── PHRASE ─── */
+  .phrase-section {
+    position: relative;
+    z-index: 1;
+    padding: 70px 20px;
+    text-align: center;
+  }
+
+  .phrase-section::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0;
+    transform: translateX(-50%);
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+  }
+
+  .phrase-section::after {
+    content: '';
+    position: absolute;
+    left: 50%; bottom: 0;
+    transform: translateX(-50%);
+    width: 1px; height: 60px;
+    background: linear-gradient(to top, transparent, var(--gold));
+  }
+
+  .big-phrase {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    color: var(--blush);
+    line-height: 1.5;
+    max-width: 800px;
+    margin: 0 auto;
+    text-shadow: 0 0 40px rgba(255,182,193,0.3);
+  }
+
+  .big-phrase span {
+    color: var(--gold);
+  }
+
+  /* ─── GALLERY ─── */
+  .gallery-section {
+    position: relative;
+    z-index: 1;
+    padding: 60px 20px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 0.8rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--cream);
+    margin-bottom: 50px;
+  }
+
+  .gallery-grid {
+    columns: 3 220px;
+    column-gap: 16px;
+  }
+
+  .gallery-item {
+    break-inside: avoid;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    cursor: zoom-in;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .gallery-item:hover {
+    transform: scale(1.03) translateY(-4px);
+    box-shadow: 0 12px 40px rgba(196,30,58,0.4);
+    z-index: 2;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    display: block;
+    filter: brightness(0.88) saturate(1.1);
+    transition: filter 0.35s ease;
+  }
+
+  .gallery-item:hover img {
+    filter: brightness(1) saturate(1.2);
+  }
+
+  .gallery-item .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,6,8,0.6) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .gallery-item:hover .overlay {
+    opacity: 1;
+  }
+
+  /* ─── LIGHTBOX ─── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5,2,4,0.95);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+  }
+
+  .lightbox.open {
+    display: flex;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 0 80px rgba(196,30,58,0.3);
+  }
+
+  .lightbox-close {
+    position: fixed;
+    top: 24px; right: 28px;
+    font-size: 2rem;
+    color: var(--cream);
+    cursor: pointer;
+    opacity: 0.7;
+    background: none; border: none;
+    transition: opacity 0.2s;
+  }
+
+  .lightbox-close:hover { opacity: 1; }
+
+  /* ─── FOOTER MESSAGE ─── */
+  .final-section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 20px 100px;
+    text-align: center;
+    background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.12));
+  }
+
+  .final-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    color: var(--cream);
+    max-width: 700px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  .final-name {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--rose);
+    text-shadow: 0 0 40px rgba(196,30,58,0.5);
+    display: block;
+    margin-bottom: 40px;
+  }
+
+  .hearts-row {
+    font-size: 1.5rem;
+    letter-spacing: 8px;
+    opacity: 0.5;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--deep); }
+  ::-webkit-scrollbar-thumb { background: var(--crimson); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- PETALS -->
+<div class="petals-canvas" id="petals"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+  <h1 class="hero-title">Que termine con amor<br><em>lo que empezó con amor</em></h1>
+  <span class="divider-heart">🌹</span>
+  <p class="hero-sub">Cada momento contigo tiene el color de algo que no se olvida, de algo que no se repite.</p>
+</section>
+
+<!-- PLAYER -->
+<section class="player-section">
+  <div class="player-card">
+    <div class="vinyl" id="vinyl">
+      <div class="vinyl-center"></div>
+    </div>
+    <p class="player-song">Te Amo Y Más</p>
+    <p class="player-artist">Diego Luna</p>
+    <audio controls id="audio-player" src="song.mp3" preload="metadata"></audio>
+  </div>
+</section>
+
+<!-- FRASE CENTRAL -->
+<section class="phrase-section">
+  <p class="big-phrase">
+    Siempre serás<br><span>el amor de mi vida.</span>
+  </p>
+</section>
+
+<!-- GALERÍA -->
+<section class="gallery-section">
+  <p class="section-label">Nuestros momentos</p>
+  <h2 class="section-title">Todo lo que guardo en el corazón</h2>
+  <div class="gallery-grid" id="gallery">
+    <!-- photos inserted by JS -->
+  </div>
+</section>
+
+<!-- MENSAJE FINAL -->
+<section class="final-section">
+  <p class="final-quote">
+    "No sé cuántos días quedan,<br>
+    pero sí sé que quiero<br>
+    vivirlos todos contigo."
+  </p>
+  <span class="final-name">Juli ❤️</span>
+  <div class="hearts-row">♥ &nbsp; ♥ &nbsp; ♥</div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lb-close">✕</button>
+  <img src="" id="lb-img" alt="">
+</div>
+
+<script>
+// ─── PETALS ───
+(function(){
+  const canvas = document.getElementById('petals');
+  const N = 28;
+  for(let i=0; i<N; i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = (Math.random()*110 - 5) + '%';
+    p.style.animationDuration = (8 + Math.random()*14) + 's';
+    p.style.animationDelay = (Math.random()*16) + 's';
+    p.style.width  = (8 + Math.random()*10) + 'px';
+    p.style.height = (12 + Math.random()*14) + 'px';
+    p.style.opacity = 0.5 + Math.random()*0.5;
+    canvas.appendChild(p);
+  }
+})();
+
+// ─── VINYL SPIN ───
+const audio = document.getElementById('audio-player');
+const vinyl = document.getElementById('vinyl');
+audio.addEventListener('play',  () => vinyl.classList.add('spinning'));
+audio.addEventListener('pause', () => vinyl.classList.remove('spinning'));
+audio.addEventListener('ended', () => vinyl.classList.remove('spinning'));
+
+// ─── GALLERY ───
+const photos = [
+  'photos/1.jpg','photos/2.jpg','photos/3.png','photos/4.png',
+  'photos/5.png','photos/6.png','photos/7.png','photos/9.png',
+  'photos/19.jpg','photos/20.jpg','photos/21.jpg',
+  'photos/22.jpg','photos/23.jpg'
+];
+const gallery = document.getElementById('gallery');
+photos.forEach(src => {
+  const item = document.createElement('div');
+  item.className = 'gallery-item';
+  item.innerHTML = `<img src="${src}" loading="lazy" alt=""><div class="overlay"></div>`;
+  item.addEventListener('click', () => openLightbox(src));
+  gallery.appendChild(item);
+});
+
+// ─── LIGHTBOX ───
+const lightbox = document.getElementById('lightbox');
+const lbImg    = document.getElementById('lb-img');
+const lbClose  = document.getElementById('lb-close');
+
+function openLightbox(src){
+  lbImg.src = src;
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
+
+function closeLightbox(){
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ─── SCROLL FADE-IN ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.gallery-item, .big-phrase, .final-quote').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
