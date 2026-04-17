@@ -406,7 +406,14 @@
   <span class="divider-heart">🌹</span>
   <p class="hero-sub">Te quiero</p>
 </section>
-
+<!-- CONTADOR -->
+<section class="counter-section" style="position:relative;z-index:1;text-align:center;padding:20px 20px 40px;">
+  <p style="font-size:0.8rem;letter-spacing:6px;text-transform:uppercase;color:#D4AF37;opacity:0.7;margin-bottom:16px;">Faltan</p>
+  <div id="countdown" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,4rem);color:#FFB6C1;letter-spacing:4px;text-shadow:0 0 40px rgba(255,182,193,0.4);">
+    00 : 00 : 00 : 00
+  </div>
+  <p style="margin-top:12px;font-style:italic;color:rgba(255,245,240,0.5);font-size:0.95rem;">días &nbsp;·&nbsp; horas &nbsp;·&nbsp; minutos &nbsp;·&nbsp; segundos</p>
+</section>
 <!-- PLAYER -->
 <section class="player-section">
   <div class="player-card">
@@ -512,7 +519,25 @@ function closeLightbox(){
   lightbox.classList.remove('open');
   document.body.style.overflow = '';
 }
-
+// ─── COUNTDOWN ───
+(function(){
+  const target = new Date('2026-04-21T18:30:00'); // Lunes 6:30 PM
+  function update(){
+    const diff = target - Date.now();
+    if(diff <= 0){ document.getElementById('countdown').textContent = '¡Ya llegó! 🌹'; return; }
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor((diff%86400000)/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+    document.getElementById('countdown').textContent =
+      String(d).padStart(2,'0') + ' : ' +
+      String(h).padStart(2,'0') + ' : ' +
+      String(m).padStart(2,'0') + ' : ' +
+      String(s).padStart(2,'0');
+  }
+  update();
+  setInterval(update, 1000);
+})();
 // ─── SCROLL FADE-IN ───
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
